@@ -10,7 +10,7 @@ export const getCabins = async () => {
   return data;
 };
 
-export const createEditCabin = async (newCabin, id) => {
+export const createUpdateCabin = async (newCabin, id) => {
   // Check if imagePath already exists (edit case)
   const hasImagePath =
     typeof newCabin.image === "string" &&
@@ -47,6 +47,7 @@ export const createEditCabin = async (newCabin, id) => {
 
     const { data, error } = await query.select();
 
+    if (hasImagePath) return data;
     if (error) {
       console.error(error);
       throw new Error("Cabin could not be created or updated");
@@ -58,7 +59,6 @@ export const createEditCabin = async (newCabin, id) => {
     throw error;
   }
 };
-
 
 export const deleteCabin = async (id) => {
   const { data, error } = await supabase.from("Cabin").delete().eq("id", id);
