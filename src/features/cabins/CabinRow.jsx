@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 import useDeleteCabin from "./useDeleteCabin";
@@ -72,7 +73,7 @@ const CabinRow = ({ cabin }) => {
   return (
     <>
       <TableRow role="row">
-        <img src={image} alt={name} />
+        <Img src={image} alt={name} />
         <Cabin>{name}</Cabin>
         <div>Fits up to {maxCapacity} guests</div>
         <Price>{formatCurrency(regularPrice)}</Price>

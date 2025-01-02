@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useForm } from "react-hook-form";
 
 import Input from "../../ui/Input";
@@ -10,7 +11,7 @@ import FormRow from "../../ui/FormRow";
 import useCreateCabin from "./useCreateCabin";
 import useUpdateCabin from "./useUpdateCabin";
 
-function CreateCabinForm({ cabinToUpdate = {} }) {
+function CreateCabinForm({ cabinToUpdate = {}, onCloseModal }) {
   const { id: UpdateId, ...UpdateValues } = cabinToUpdate;
   const isUpdateSession = Boolean(UpdateId);
 
@@ -28,16 +29,33 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
     if (isUpdateSession)
       UpdateCabin(
         { newCabinData: { ...data, image }, id: UpdateId },
-        { onSuccess: () => reset() }
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
       );
-    else createCabin({ ...data, image: image }, { onSuccess: () => reset() });
+    else
+      createCabin(
+        { ...data, image: image },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
   };
   const onError = (error) => {
     console.error(error);
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -123,7 +141,11 @@ function CreateCabinForm({ cabinToUpdate = {} }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button disabled={isWorking}>
