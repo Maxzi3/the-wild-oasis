@@ -1,24 +1,19 @@
-import { useState } from "react";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import CreateCabinForm from "./CreateCabinForm";
 
 const AddCabin = () => {
   return (
-    <Modal>
-      <Modal.Open opens="cabin-form">
-        <Button>Add New Cabin</Button>
-      </Modal.Open>
-      <Modal.Window name="cabin-form">
-        <CreateCabinForm />
-      </Modal.Window>
-      {/* <Modal.open opens="table">
-        <Button>Show Table</Button>
-      </Modal.open>
-      <Modal.Window name="table">
-        <CreateCabinForm />
-      </Modal.Window> */}
-    </Modal>
+    <div>
+      <Modal>
+        <Modal.Open opens="cabin-form">
+          <Button>Add New Cabin</Button>
+        </Modal.Open>
+        <Modal.Window name="cabin-form">
+          <CreateCabinForm />
+        </Modal.Window>
+      </Modal>
+    </div>
   );
 };
 

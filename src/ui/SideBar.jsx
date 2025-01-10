@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Logo from "../ui/Logo";
 import MainNav from "../ui/MainNav";
-
+import Uploader from "../data/Uploader";  
 
 const StyledAside = styled.aside`
   background-color: var(--color-grey-0);
@@ -10,7 +10,7 @@ const StyledAside = styled.aside`
   grid-row: 1/-1;
   display: flex;
   flex-direction: column;
-  gap: 3.2rem ;
+  gap: 3.2rem;
 `;
 
 const SideBar = () => {
@@ -18,6 +18,8 @@ const SideBar = () => {
     <StyledAside>
       <Logo />
       <MainNav />
+
+      <Uploader />
     </StyledAside>
   );
 };
