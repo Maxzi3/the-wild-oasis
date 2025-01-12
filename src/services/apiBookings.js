@@ -105,23 +105,26 @@ export async function getStaysTodayActivity() {
 }
 
 export async function updateBooking(id, obj) {
+  console.log("Updating booking with ID:", id, "and data:", obj);
+
   const { data, error } = await supabase
-    .from("bookings")
+    .from("Bookings")
     .update(obj)
     .eq("id", id)
     .select()
     .single();
 
   if (error) {
-    console.error(error);
+    console.error("Supabase error:", error);
     throw new Error("Booking could not be updated");
   }
+  console.log("Update successful:", data);
   return data;
 }
 
 export async function deleteBooking(id) {
   // REMEMBER RLS POLICIES
-  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+  const { data, error } = await supabase.from("Bookings").delete().eq("id", id);
 
   if (error) {
     console.error(error);
