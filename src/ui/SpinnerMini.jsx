@@ -4,7 +4,7 @@ import { BiLoaderAlt } from "react-icons/bi";
 const rotate = keyframes`
   to {
     transform: rotate(1turn)
-  }
+  } 
 `;
 
 const SpinnerMini = styled(BiLoaderAlt)`

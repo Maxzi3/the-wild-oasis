@@ -14,18 +14,30 @@ function UpdateUserDataForm() {
   const {
     user: {
       email,
-      user_metadata: { name: currentFullName },
+      user_metadata: { fullName: currentFullName },
     },
   } = useUser();
 
-  const { UpdateUser, isUpdating } = useUpdateUser();
+  const { updateUser, isUpdating } = useUpdateUser();
   const [fullName, setFullName] = useState(currentFullName);
   const [avatar, setAvatar] = useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!fullName) return;
-    UpdateUser({ fullName, avatar });
+    updateUser(
+      { fullName, avatar },
+      {
+        onSuccess: () => {
+          setAvatar(null);
+          e.target.reset();
+        },
+      }
+    );
+  }
+  function handleCancel() {
+    setFullName(currentFullName);
+    setAvatar(null);
   }
 
   return (
@@ -51,7 +63,12 @@ function UpdateUserDataForm() {
         />
       </FormRow>
       <FormRow>
-        <Button type="reset" variations="secondary" disabled={isUpdating}>
+        <Button
+          type="reset"
+          variations="secondary"
+          disabled={isUpdating}
+          onClick={handleCancel}
+        >
           Cancel
         </Button>
         <Button disabled={isUpdating}>Update account</Button>
