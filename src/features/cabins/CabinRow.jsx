@@ -88,7 +88,11 @@ const CabinRow = ({ cabin }) => {
           <Menus.Menu>
             <Menus.Toggle id={cabinId} />
             <Menus.List id={cabinId}>
-              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+              <Menus.Button
+                disabled={isCreating}
+                icon={<HiSquare2Stack />}
+                onClick={handleDuplicate}
+              >
                 Duplicate
               </Menus.Button>
 
@@ -106,7 +110,7 @@ const CabinRow = ({ cabin }) => {
             <CreateCabinForm cabinToUpdate={cabin} />
           </Modal.Window>
 
-          <Modal.Window name="delete"> 
+          <Modal.Window name="delete">
             <ConfirmDelete
               resourceName="cabins"
               disabled={isDeleting}
